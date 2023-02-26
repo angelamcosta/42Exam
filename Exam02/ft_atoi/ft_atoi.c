@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rrange.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anlima <anlima@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 18:34:49 by anlima            #+#    #+#             */
-/*   Updated: 2023/02/26 18:44:30 by anlima           ###   ########.fr       */
+/*   Created: 2023/02/26 18:25:53 by anlima            #+#    #+#             */
+/*   Updated: 2023/02/26 18:32:28 by anlima           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_range(int start, int end)
+int	ft_isnum(char c)
 {
-	if (start > end)
-		return (start - end);
-	return (end - start);
+	return (c >= 48 && c <= 57);
 }
 
-int     *ft_rrange(int start, int end)
+int	ft_atoi(const char *str)
 {
 	int	i = 0;
-	int	*arr = (int *)malloc(sizeof(int) * (ft_range(start, end) + 1));
-	if (!arr)
-		return (0);
-	if (start == end)
-		arr[0] = start;
-	else if (start > end)
+	int	nb = 0;
+	int	flag = 0;
+
+	if (str[0] == '-')
+		flag = 1;
+	if (str[0] == '+' || flag)
+		i++;
+	while (str && str[i])
 	{
-		while (start >= end)
-			arr[i++] = end++;
+		if (!ft_isnum(str[i]))
+			break ;
+		nb = nb * 10 + (str[i] - 48);
+		i++;
 	}
-	else if (start < end)
-	{
-		while (start <= end)
-			arr[i++] = end--;
-	}
-	return (arr);
+	if (flag)
+		nb *= -1;
+	return (nb);
 }

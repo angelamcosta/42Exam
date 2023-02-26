@@ -5,45 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anlima <anlima@student.42lisboa.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 17:43:10 by anlima            #+#    #+#             */
-/*   Updated: 2023/02/23 18:07:19 by anlima           ###   ########.fr       */
+/*   Created: 2023/02/26 18:46:35 by anlima            #+#    #+#             */
+/*   Updated: 2023/02/26 19:17:38 by anlima           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int	ft_strlen(char *str)
 {
-	int i = 0;
+	int	i = 0;
 
 	while (str && str[i])
 		i++;
 	return (i);
 }
 
-int	ft_wc(char *str)
+void    ft_printstr(char *str, int start, int end)
 {
-	int	i = 0;
-	int w = 1;
-	
-	while (str && str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t')
-			w++;
-		i++;
-	}
-	return (w);
+    while (1)
+    {
+        write(1, &str[start++], 1);
+        if (start > end)
+            break ;
+    }
 }
 
-void	ft_printwords(char *str)
+void	ft_revprint(char *str)
+{
+	int	i = ft_strlen(str) - 1;
+	int	j = i;
 
+	while (str && str[j] && j > 0)
+	{
+		if (str[j - 1] == ' ' || str[j - 1] == '\t' || j - 1 == 0)
+		{	
+			if (j - 1 == 0)
+				j--;
+			ft_printstr(str, j, i);
+			if (j != 0)
+			{
+				write(1, &str[j - 1], 1);
+				i = j - 2;
+			}
+		}
+		j--;
+	}
+}
 
 int	main(int argc, char **argv)
 {
 	if (argc == 2)
-	
-	else
-		write(1, "\n", 1);
-	return (0);
+		ft_revprint(argv[1]);
+	write(1, "\n", 1);
 }
